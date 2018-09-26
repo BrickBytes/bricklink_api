@@ -29,7 +29,7 @@ Usage
 
 First, create a copy of the `auth.sample.json` named as `auth.json` and then open it with a text editor and fill it with your auth parameter values. Once done, you can start `python` and test the library:
 
-```python
+```
 >>> import bricklink_api
 >>> bricklink_api.catalog_item.get_price_guide("Set", "6335-1", new_or_used="U")
 ```

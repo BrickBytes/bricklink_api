@@ -12,6 +12,7 @@ class Method(_enum.Enum):
   GET = "GET"
   POST = "POST"
   PUT = "PUT"
+  DELETE = "DELETE"
 
 
 def request(

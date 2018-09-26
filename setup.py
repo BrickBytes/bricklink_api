@@ -53,6 +53,10 @@ setup(
       "": [
           "LICENSE.txt",
           "README.md",
+          "*.json",
+      ],
+      "bricklink_api": [
+          "*.json",
       ],
   },
   install_requires = [
