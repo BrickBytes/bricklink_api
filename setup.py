@@ -1,19 +1,17 @@
-"""
-FUMBBL SR Rankings module and scripts
-"""
-
 import pathlib
 import re
 
-from setuptools import setup
-
+from setuptools import setup, find_packages
 
 thisdir = pathlib.Path(__file__).parent
 srdir = thisdir / "bricklink_api"
 
 
-with (thisdir / "README.md").open(encoding="utf8") as f:
+with (thisdir / "README.md").open() as f:
   readme = f.read()
+
+with (thisdir / "requirements.txt").open() as f:
+  install_requires = [s.strip() for s in f.readlines()]
 
 
 metadata_pobj = re.compile(r"__([a-z]+)__ = \"([^\"]+)")
@@ -37,6 +35,8 @@ setup(
       "License :: OSI Approved :: MIT License",
       "Programming Language :: Python :: 3 :: Only",
       "Programming Language :: Python :: 3.6",
+      "Programming Language :: Python :: 3.7",
+      "Programming Language :: Python :: 3.8"
   ],
   keywords = [
       "game",
@@ -44,7 +44,7 @@ setup(
       "brick",
       "bricklink",
   ],
-  packages = ["sr"],
+  packages = find_packages(),
   package_dir = {
       "bricklink_api": "bricklink_api",
   },
@@ -59,13 +59,10 @@ setup(
           "*.json",
       ],
   },
-  install_requires = [
-      "requests",
-      "requests_oauthlib",
-      "yarl",
-  ],
+  install_requires = install_requires,
   extras_require = {
   },
+  python_requires = ">=3.6",
   scripts = [
   ],
   )
