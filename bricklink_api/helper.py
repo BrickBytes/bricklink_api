@@ -11,6 +11,10 @@ def enumize(obj, enum_type):
         raise exc
 
 
+def deenumize(obj):
+  return obj.value if hasattr(obj, "value") else obj
+
+
 def norm_params(params: dict, *, func=None) -> dict:
   rparams = {}
   annotations = {}
