@@ -23,12 +23,8 @@ class GuideType(_enum.Enum):
 
 
 class NewOrUsed(_enum.Enum):
-  N = "New"
-  U = "Used"
-  NEW = "New"
-  USED = "USED"
-  DEFAULT = "New"
-
+  NEW = "N"
+  USED = "U"
 
 class VATSetting(_enum.Enum):
   N = "N"
