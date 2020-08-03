@@ -1,5 +1,6 @@
 import enum as _enum
 import string as _string
+from typing import Any
 
 from . import auth as _auth
 from . import helper as _helper
@@ -37,7 +38,7 @@ def method(
     request_method: Method,
     uri: str,
     **kwargs
-) -> requests.Response:
+) -> Any:
   preq = request(request_method, uri, **kwargs)
   with requests.Session() as s:
     resp = s.send(preq)

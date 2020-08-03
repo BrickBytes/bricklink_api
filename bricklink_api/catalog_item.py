@@ -1,7 +1,7 @@
 import enum as _enum
 
 from . import helper as _helper
-from .method import method as _method
+from .method import method as _method, Method
 
 
 class Type(_enum.Enum):
@@ -23,12 +23,8 @@ class GuideType(_enum.Enum):
 
 
 class NewOrUsed(_enum.Enum):
-  N = "New"
-  U = "Used"
-  NEW = "New"
-  USED = "USED"
-  DEFAULT = "New"
-
+  NEW = "N"
+  USED = "U"
 
 class VATSetting(_enum.Enum):
   N = "N"
@@ -45,7 +41,7 @@ def get_item(
     no: str,
     **kwargs
 ) -> dict:
-  return _method("GET", f'/items/{type_}/{no}',**kwargs)
+  return _method(Method.GET, f'/items/{_helper.deenumize(type_)}/{no}',**kwargs)
 
 
 def get_item_image(
@@ -55,8 +51,8 @@ def get_item_image(
     **kwargs
 ) -> dict:
   return _method(
-      "GET",
-      f'/items/{type_}/{no}/images/{color_id}',
+      Method.GET,
+      f'/items/{_helper.deenumize(type_)}/{no}/images/{color_id}',
       **kwargs
   )
 
@@ -70,7 +66,7 @@ def get_supersets(
   params = _helper.norm_params({
       "color_id": color_id,
   })
-  return _method("GET", f'/items/{type_}/{no}/supersets',
+  return _method(Method.GET, f'/items/{_helper.deenumize(type_)}/{no}/supersets',
       params=params,
       **kwargs
   )
@@ -93,7 +89,7 @@ def get_subsets(
       "break_minifigs": break_minifigs,
       "break_subsets": break_subsets,
   })
-  return _method("GET", f'/items/{type_}/{no}/subsets',
+  return _method(Method.GET, f'/items/{_helper.deenumize(type_)}/{no}/subsets',
       params=params,
       **kwargs
   )
@@ -120,7 +116,7 @@ def get_price_guide(
       "currency_code": currency_code,
       "vat": vat,
   })
-  return _method("GET", f'/items/{type_}/{no}/price',
+  return _method(Method.GET, f'/items/{_helper.deenumize(type_)}/{no}/price',
       params=params,
       **kwargs
   )
@@ -131,4 +127,4 @@ def get_known_colors(
     no: str,
     **kwargs
 ) -> dict:
-  return _method("GET", f'/items/{type_}/{no}/colors',**kwargs)
+  return _method(Method.GET, f'/items/{_helper.deenumize(type_)}/{no}/colors',**kwargs)
