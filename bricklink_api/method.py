@@ -9,6 +9,8 @@ from . import url as _url
 import requests
 
 
+s = requests.Session()
+
 class Method(_enum.Enum):
   GET = "GET"
   POST = "POST"
@@ -40,6 +42,5 @@ def method(
     **kwargs
 ) -> Any:
   preq = request(request_method, uri, **kwargs)
-  with requests.Session() as s:
-    resp = s.send(preq)
+  resp = s.send(preq)
   return resp.json()
