@@ -12,8 +12,8 @@ class Type(_enum.Enum):
   GEAR = "Gear"
   CATALOG = "Catalog"
   INSTRUCTION = "Instruction"
-  UNSORTED_LOT = "Unsorted Lot"
-  ORIGINAL_BOX = "Original Box"
+  UNSORTED_LOT = "Unsorted_Lot"
+  ORIGINAL_BOX = "Original_Box"
 
 
 class GuideType(_enum.Enum):
