@@ -8,11 +8,13 @@ def enumize(obj, enum_type):
       try:
         return enum_type[obj]
       except KeyError:
-        raise exc
-
-
-def deenumize(obj):
-  return obj.value if hasattr(obj, "value") else obj
+        pass
+      if hasattr(obj, "upper"):
+        try:
+          return enum_type[obj.upper()]
+        except KeyError:
+          pass
+  raise ValueError(f'{obj!r} is not member of enum type: {enum_type.__name__}')
 
 
 def norm_params(params: dict, *, func=None) -> dict:

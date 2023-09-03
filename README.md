@@ -1,12 +1,17 @@
 bricklink_api
 =============
 
-version 0.0.1 alpha
+version 0.1.0 alpha
 
 This is the documentation of the ``bricklink_api`` Python 3 library and scripts.
 
-**At this moment, the content is in an early alpha stage and under constant development.**
-**It is also possible that parts of the API will change soon.**
+**ATTENTION! This library uses the legacy version 1 BrickLink API.**
+
+And on GitHub it will stay as it is.
+
+I am leaving GitHub because of the 2FA enforcement.  -- SzieberthAdam
+
+New repo: *Codeberg link here.*
 
 
 Installation
@@ -40,18 +45,20 @@ First, create a copy of the `auth.sample.json` named as `auth.json` and then ope
 ### Script example
 
 ```python
+import requests
 from bricklink_api.auth import oauth
 from bricklink_api.catalog_item import get_price_guide, Type, NewOrUsed
 
 # fill in with your data from https://www.bricklink.com/v2/api/register_consumer.page
-consumer_key = "00000000000000000000000000000000"
+consumer_key =    "00000000000000000000000000000000"
 consumer_secret = "00000000000000000000000000000000"
-token_value = "00000000000000000000000000000000"
-token_secret = "00000000000000000000000000000000"
+token_value =     "00000000000000000000000000000000"
+token_secret =    "00000000000000000000000000000000"
 auth = oauth(consumer_key, consumer_secret, token_value, token_secret)
 
 # get price guide for a used 42100-1 (Lego Technic Liebherr R 9800)
-json_obj = get_price_guide(Type.SET, "42100-1", new_or_used=NewOrUsed.USED, auth=auth)
+with requests.Session() as session:
+    json_obj = get_price_guide(Type.SET, "42100-1", new_or_used=NewOrUsed.USED, auth=auth, session=session)
 
 # json_obj:
 # {'data': {'avg_price': '337.4950',

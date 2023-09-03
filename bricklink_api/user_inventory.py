@@ -1,7 +1,7 @@
 import enum as _enum
 
 from . import helper as _helper
-from .method import method as _method
+from . import method as _method
 
 from . import catalog_item as _catalog_item
 
@@ -28,7 +28,9 @@ def get_inventories(
     "category_id": category_id,
     "color_id": color_id,
   })
-  return _method("GET", "/inventories",
+  return _method.method(
+      _method.Method.GET,
+      "/inventories",
       params = params,
       **kwargs
   )
@@ -38,7 +40,9 @@ def get_inventory(
     inventory_id: int,
     **kwargs
 ) -> dict:
-  return _method("GET", f'/inventories/{inventory_id}',
+  return _method.method(
+      _method.Method.GET,
+      f'/inventories/{inventory_id}',
       **kwargs
   )
 
@@ -47,7 +51,9 @@ def create_inventory(
     inventory_resource: dict,
     **kwargs
 ) -> dict:
-  return _method("POST", "/inventories",
+  return _method.method(
+      _method.Method.POST,
+      "/inventories",
       json = inventory_resource,
       **kwargs
   )
@@ -57,7 +63,9 @@ def create_inventories(
     inventory_resources: list,
     **kwargs
 ) -> dict:
-  return _method("POST", "/inventories",
+  return _method.method(
+      _method.Method.POST,
+      "/inventories",
       json = inventory_resources,
       **kwargs
   )
@@ -68,7 +76,9 @@ def update_inventory(
     inventory_resource: dict,
     **kwargs
 ) -> dict:
-  return _method("PUT", f'/inventories/{inventory_id}',
+  return _method.method(
+      _method.Method.PUT,
+      f'/inventories/{inventory_id}',
       json = inventory_resource,
       **kwargs
   )
@@ -78,6 +88,8 @@ def delete_inventory(
     inventory_id: int,
     **kwargs
 ) -> dict:
-  return _method("DELETE", f'/inventories/{inventory_id}',
+  return _method.method(
+      _method.Method.DELETE,
+      f'/inventories/{inventory_id}',
       **kwargs
   )

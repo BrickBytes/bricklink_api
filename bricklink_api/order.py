@@ -1,7 +1,7 @@
 import enum as _enum
 
 from . import helper as _helper
-from .method import method as _method
+from . import method as _method
 
 
 class Direction(_enum.Enum):
@@ -45,12 +45,16 @@ def get_orders(
     filed: bool = None,
     **kwargs
 ) -> dict:
+  if direction is not None:
+    direction = _helper.enumize(direction, Direction)
   params = _helper.norm_params({
       "direction": direction,
       "status": status,
       "filed": filed,
   })
-  return _method("GET", f'/orders',
+  return _method.method(
+      _method.Method.GET,
+      f'/orders',
       params = params,
       **kwargs
   )
@@ -60,7 +64,9 @@ def get_order(
     order_id: int,
     **kwargs
 ) -> dict:
-  return _method("GET", f'/orders/{order_id}',
+  return _method.method(
+      _method.Method.GET,
+      f'/orders/{order_id}',
       **kwargs
   )
 
@@ -69,7 +75,9 @@ def get_order_messages(
     order_id: int,
     **kwargs
 ) -> dict:
-  return _method("GET", f'/orders/{order_id}/messages',
+  return _method.method(
+      _method.Method.GET,
+      f'/orders/{order_id}/messages',
       **kwargs
   )
 
@@ -78,7 +86,9 @@ def get_order_items(
     order_id: int,
     **kwargs
 ) -> dict:
-  return _method("GET", f'/orders/{order_id}/items',
+  return _method.method(
+      _method.Method.GET,
+      f'/orders/{order_id}/items',
       **kwargs
   )
 
@@ -87,7 +97,9 @@ def get_order_feedback(
     order_id: int,
     **kwargs
 ) -> dict:
-  return _method("GET", f'/orders/{order_id}/feedback',
+  return _method.method(
+      _method.Method.GET,
+      f'/orders/{order_id}/feedback',
       **kwargs
   )
 
@@ -97,7 +109,9 @@ def update_order(
     order_resource: dict,
     **kwargs
 ) -> dict:
-  return _method("PUT", f'/orders/{order_id}',
+  return _method.method(
+      _method.Method.PUT,
+      f'/orders/{order_id}',
       json = order_resource,
       **kwargs
   )
@@ -109,7 +123,9 @@ def update_order_status(
     **kwargs
 ) -> dict:
   value = _helper.enumize(status, Status).name
-  return _method("PUT", f'/orders/{order_id}/status',
+  return _method.method(
+      _method.Method.PUT,
+      f'/orders/{order_id}/status',
       json = {"field" : "status", "value": value},
       **kwargs
   )
@@ -121,7 +137,9 @@ def update_payment_status(
     **kwargs
 ) -> dict:
   value = _helper.enumize(payment_status, PaymentStatus).value
-  return _method("PUT", f'/orders/{order_id}/status',
+  return _method.method(
+      _method.Method.PUT,
+      f'/orders/{order_id}/status',
       json = {"field" : "payment_status", "value": value},
       **kwargs
   )
@@ -132,7 +150,9 @@ def send_drive_thru(
     mail_me: bool = None,
     **kwargs
 ) -> dict:
-  return _method("POST", f'/orders/{order_id}/drive_thru',
+  return _method.method(
+      _method.Method.POST,
+      f'/orders/{order_id}/drive_thru',
       params = _helper.norm_params({"mail_me": mail_me}),
       **kwargs
   )

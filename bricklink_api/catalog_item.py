@@ -1,7 +1,7 @@
 import enum as _enum
 
 from . import helper as _helper
-from .method import method as _method, Method
+from . import method as _method
 
 
 class Type(_enum.Enum):
@@ -41,7 +41,11 @@ def get_item(
     no: str,
     **kwargs
 ) -> dict:
-  return _method(Method.GET, f'/items/{_helper.deenumize(type_)}/{no}',**kwargs)
+  return _method.method(
+      _method.Method.GET,
+      f'/items/{_helper.enumize(type_, Type).value}/{no}',
+      **kwargs
+  )
 
 
 def get_item_image(
@@ -50,9 +54,9 @@ def get_item_image(
     color_id: int,
     **kwargs
 ) -> dict:
-  return _method(
-      Method.GET,
-      f'/items/{_helper.deenumize(type_)}/{no}/images/{color_id}',
+  return _method.method(
+      _method.Method.GET,
+      f'/items/{_helper.enumize(type_, Type).value}/{no}/images/{color_id}',
       **kwargs
   )
 
@@ -66,7 +70,9 @@ def get_supersets(
   params = _helper.norm_params({
       "color_id": color_id,
   })
-  return _method(Method.GET, f'/items/{_helper.deenumize(type_)}/{no}/supersets',
+  return _method.method(
+      _method.Method.GET,
+      f'/items/{_helper.enumize(type_, Type).value}/{no}/supersets',
       params=params,
       **kwargs
   )
@@ -89,7 +95,9 @@ def get_subsets(
       "break_minifigs": break_minifigs,
       "break_subsets": break_subsets,
   })
-  return _method(Method.GET, f'/items/{_helper.deenumize(type_)}/{no}/subsets',
+  return _method.method(
+      _method.Method.GET,
+      f'/items/{_helper.enumize(type_, Type).value}/{no}/subsets',
       params=params,
       **kwargs
   )
@@ -107,6 +115,12 @@ def get_price_guide(
     vat: VATSetting = None,
     **kwargs
 ) -> dict:
+  if guide_type is not None:
+    guide_type = _helper.enumize(guide_type, GuideType)
+  if new_or_used is not None:
+    new_or_used = _helper.enumize(new_or_used, NewOrUsed)
+  if vat is not None:
+    vat = _helper.enumize(vat, VATSetting)
   params = _helper.norm_params({
       "color_id": color_id,
       "guide_type": guide_type,
@@ -116,7 +130,9 @@ def get_price_guide(
       "currency_code": currency_code,
       "vat": vat,
   })
-  return _method(Method.GET, f'/items/{_helper.deenumize(type_)}/{no}/price',
+  return _method.method(
+      _method.Method.GET,
+      f'/items/{_helper.enumize(type_, Type).value}/{no}/price',
       params=params,
       **kwargs
   )
@@ -127,4 +143,8 @@ def get_known_colors(
     no: str,
     **kwargs
 ) -> dict:
-  return _method(Method.GET, f'/items/{_helper.deenumize(type_)}/{no}/colors',**kwargs)
+  return _method.method(
+      _method.Method.GET,
+      f'/items/{_helper.enumize(type_, Type).value}/{no}/colors',
+      **kwargs
+  )

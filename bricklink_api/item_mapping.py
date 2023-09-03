@@ -1,6 +1,5 @@
-from .method import method as _method
-
 from . import catalog_item as _catalog_item
+from . import method as _method
 
 
 def get_element_id(
@@ -8,7 +7,9 @@ def get_element_id(
     no: str,
     **kwargs
 ) -> dict:
-  return _method("GET", f'/item_mapping/{type_}/{no}',
+  return _method.method(
+      _method.Method.GET,
+      f'/item_mapping/{type_}/{no}',
       **kwargs
   )
 
@@ -17,6 +18,8 @@ def get_item_number(
     element_id: int,
     **kwargs
 ) -> dict:
-  return _method("GET", f'/item_mapping/{element_id}',
+  return _method.method(
+      _method.Method.GET,
+      f'/item_mapping/{element_id}',
       **kwargs
   )

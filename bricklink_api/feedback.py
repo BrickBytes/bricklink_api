@@ -1,6 +1,6 @@
 import enum as _enum
 
-from .method import method as _method
+from . import method as _method
 
 
 class Direction(_enum.Enum):
@@ -14,7 +14,9 @@ def get_feedback_list(
     direction: Direction = None,
     **kwargs
 ) -> dict:
-  return _method("GET", "/feedback",
+  return _method.method(
+      _method.Method.GET,
+      "/feedback",
       **kwargs
   )
 
@@ -23,7 +25,9 @@ def get_feedback(
     feedback_id: int,
     **kwargs
 ) -> dict:
-  return _method("GET", f'/feedback/{feedback_id}',
+  return _method.method(
+      _method.Method.GET,
+      f'/feedback/{feedback_id}',
       **kwargs
   )
 
@@ -32,7 +36,9 @@ def post_feedback(
     feedback_resource: dict,
     **kwargs
 ) -> dict:
-  return _method("POST", "/feedback",
+  return _method.method(
+      _method.Method.POST,
+      "/feedback",
       json = feedback_resource,
       **kwargs
   )
@@ -43,7 +49,9 @@ def reply_feedback(
     feedback_resource: dict,
     **kwargs
 ) -> dict:
-  return _method("POST", f'/feedback/{feedback_id}/reply',
+  return _method.method(
+      _method.Method.POST,
+      f'/feedback/{feedback_id}/reply',
       json = feedback_resource,
       **kwargs
   )
